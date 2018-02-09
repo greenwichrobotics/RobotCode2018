@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6484.robot.subsystems.DriveTrainSubSystem;
+import org.usfirst.frc.team6484.robot.subsystems.SweepMotorSubSystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,6 +24,7 @@ import org.usfirst.frc.team6484.robot.subsystems.DriveTrainSubSystem;
  */
 public class Robot extends TimedRobot {
 	public static final DriveTrainSubSystem DriveTrainSub = new DriveTrainSubSystem();
+	public static final SweepMotorSubSystem SweepMotorSub = new SweepMotorSubSystem();
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
