@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
 
 		m_chooser.addDefault("Nothing", null);
 		m_chooser.addObject("Baseline", new DriveForward());
-		m_chooser.addObject("Straight Right Straight", new StraightRightStraight());
+//		m_chooser.addObject("Straight Right Straight", new StraightRightStraight());
 		
 		SmartDashboard.putData("Auto Mode", m_chooser);
 	}

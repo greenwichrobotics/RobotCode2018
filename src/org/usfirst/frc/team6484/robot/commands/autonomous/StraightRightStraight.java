@@ -33,11 +33,14 @@ public class StraightRightStraight extends Command {
     	double currentTime =  timer.get();
     	if (currentTime < 5.0)
     		Robot.DriveTrainSub.curvatureDrive(-0.3, angle * Kp, false); // drive towards heading 0
-    	else if(currentTime <= 5.0 && currentTime < 7.0){
+    	else if(currentTime >= 5.0 && currentTime < 7.0){
     		Robot.DriveTrainSub.curvatureDrive(0.0, 30 * Kp, true);
-    	
-    	}else if(currentTime <= 7.0 && currentTime < 10.0){
+    	}else if(currentTime >= 7.0 && currentTime < 10.0){
     		Robot.DriveTrainSub.curvatureDrive(-0.3, (angle + 30) * Kp, false);
+    	}else if (currentTime >= 10.0 && currentTime < 12.0) {
+    		Robot.DriveTrainSub.curvatureDrive(0.0, angle * Kp, true);
+    	}else if(currentTime >= 12.0 && currentTime < 15.0 ) {
+    		Robot.DriveTrainSub.curvatureDrive(-0.3, angle * Kp, false);
     	}else
     		Robot.DriveTrainSub.stop();
     }
