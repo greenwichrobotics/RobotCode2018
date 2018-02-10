@@ -21,12 +21,14 @@ public class DriveTrainCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(OI.pilotController.getLeftTrigger() > 0 && OI.pilotController.getRightTrigger() > 0)
-    		Robot.DriveTrainSub.arcadeDrive(0.0, 0.0);
-    	else if(OI.pilotController.getRightTrigger() > 0)
-    		Robot.DriveTrainSub.arcadeDrive(OI.pilotController.getRightTrigger(), OI.pilotController.getLeftStickX());
-    	else if(OI.pilotController.getLeftTrigger() > 0)
-    		Robot.DriveTrainSub.arcadeDrive(-1 * OI.pilotController.getLeftTrigger(), OI.pilotController.getLeftStickX());
+    	Robot.DriveTrainSub.arcadeDrive(OI.pilotController.getTriggerValue(), OI.pilotController.getLeftStickX());
+    	
+//    	if(OI.pilotController.getLeftTrigger() > 0 && OI.pilotController.getRightTrigger() > 0)
+//    		Robot.DriveTrainSub.arcadeDrive(0.0, 0.0);
+//    	else if(OI.pilotController.getRightTrigger() > 0)
+//    		Robot.DriveTrainSub.arcadeDrive(OI.pilotController.getRightTrigger(), OI.pilotController.getLeftStickX());
+//    	else if(OI.pilotController.getLeftTrigger() > 0)
+//    		Robot.DriveTrainSub.arcadeDrive(-1 * OI.pilotController.getLeftTrigger(), OI.pilotController.getLeftStickX());
     }
 
     // Make this return true when this Command no longer needs to run execute()

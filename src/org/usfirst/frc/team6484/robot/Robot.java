@@ -25,7 +25,6 @@ import org.usfirst.frc.team6484.robot.subsystems.SweepMotorSubSystem;
 public class Robot extends TimedRobot {
 	public static final DriveTrainSubSystem DriveTrainSub = new DriveTrainSubSystem();
 	public static final SweepMotorSubSystem SweepMotorSub = new SweepMotorSubSystem();
-	public static OI m_oi;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -36,7 +35,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		m_oi = new OI();
+		OI.init();
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
