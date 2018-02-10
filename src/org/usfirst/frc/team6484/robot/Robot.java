@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6484.robot.subsystems.DriveTrainSubSystem;
+import org.usfirst.frc.team6484.robot.subsystems.GyroSubsystem;
 import org.usfirst.frc.team6484.robot.subsystems.SweepMotorSubSystem;
+import org.usfirst.frc.team6484.robot.commands.autonomous.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,6 +27,7 @@ import org.usfirst.frc.team6484.robot.subsystems.SweepMotorSubSystem;
 public class Robot extends TimedRobot {
 	public static final DriveTrainSubSystem DriveTrainSub = new DriveTrainSubSystem();
 	public static final SweepMotorSubSystem SweepMotorSub = new SweepMotorSubSystem();
+	public static final GyroSubsystem Gyro = new GyroSubsystem();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -36,7 +39,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		OI.init();
-		SmartDashboard.putData("Auto mode", m_chooser);
+
+		m_chooser.addDefault("Nothing", null);
+		m_chooser.addObject("Baseline", new DriveForward());
+		m_chooser.addObject("Straight Right Straight", new StraightRightStraight());
+		
+		SmartDashboard.putData("Auto Mode", m_chooser);
 	}
 
 	/**
