@@ -3,12 +3,14 @@ package org.usfirst.frc.team6484.robot.commands;
 import org.usfirst.frc.team6484.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team6484.robot.OI;
 
 /**
  *
  */
 public class SweepMotorCommand extends Command {
 
+	public Boolean isSweeperPull = false;
     public SweepMotorCommand() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.SweepMotorSub);
@@ -20,12 +22,19 @@ public class SweepMotorCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//ToDo if button ? is pressed and held
-    	//Robot.SweepMotorSub.grabCube();
-    	//Need to add method for a switch
-    	//If the switch is pressed then do not run the motors in. 
-    	//else if button ? is pressed and held
-    	Robot.SweepMotorSub.pushCube();
+    	if(OI.copilotController.isYButtonPressed())
+    	{
+    		//Were we in pull mode
+    		if(isSweeperPull == true)
+    		{
+    			isSweeperPull = false;
+    			Robot.SweepMotorSub.pushCube();
+    		}
+    		else {
+    			isSweeperPull = true;
+    			Robot.SweepMotorSub.grabCube();
+    		}
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
