@@ -31,4 +31,8 @@ public class RobotMap {
 	
 	public static int pilotControllerPort = 0;
 	public static int copilotControllerPort = 1;
+	
+	public static int leftSweeperMotor = 8;
+	public static int rightSweeperMotor = 9;
+	public static int intakeSwitch = 2;
 }
