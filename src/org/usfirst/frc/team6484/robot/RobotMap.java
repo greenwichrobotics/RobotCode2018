@@ -35,4 +35,8 @@ public class RobotMap {
 	public static int leftSweeperMotor = 8;
 	public static int rightSweeperMotor = 9;
 	public static int intakeSwitch = 2;
+	
+	public static int clampOut = 2;
+	public static int clampIn = 3;
+	
 }
