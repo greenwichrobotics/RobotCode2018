@@ -39,7 +39,12 @@ public class DriveTrainSubSystem extends Subsystem {
     public void arcadeDrive(double xSpeed, double zRotation) {
     	m_drive.arcadeDrive(xSpeed, zRotation);
     }
-    
+    public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn) {
+    	m_drive.curvatureDrive(xSpeed, zRotation, isQuickTurn);
+    }
+    public void stop() {
+    	m_drive.arcadeDrive(0.0, 0.0);
+    }
     public void initDefaultCommand() {
     	setDefaultCommand(new DriveTrainCommand());
     }
