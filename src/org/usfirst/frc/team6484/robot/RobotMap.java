@@ -36,8 +36,11 @@ public class RobotMap {
 	public static int rightSweeperMotor = 9;
 	public static int intakeSwitch = 2;
 	
+
 	//The number is the port on the roboRio
-	
-	public static int tableOut = 0;//out
+  public static int tableOut = 0;//out
 	public static int tableIn = 1;//in
+	public static int clampOut = 2;
+	public static int clampIn = 3;
+
 }
