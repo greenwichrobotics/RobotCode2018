@@ -18,12 +18,12 @@ boolean scissorUp = false;
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (OI.pilotController.isRBButtonPressed())
-    		if(scissorUp == true)
+    		if(scissorUp == false)
     		{
     			scissorUp = false;
     			Robot.ScissorSub.ScissorUp();
     		}
-    		else if(scissorUp == false) 
+    		else if(scissorUp == true) 
     		{
     			scissorUp = true;
     			Robot.ScissorSub.ScissorDown();
