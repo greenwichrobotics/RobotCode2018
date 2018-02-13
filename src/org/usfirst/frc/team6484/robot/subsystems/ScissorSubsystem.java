@@ -1,27 +1,30 @@
 package org.usfirst.frc.team6484.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import org.usfirst.frc.team6484.robot.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import org.usfirst.frc.team6484.robot.RobotMap;
 
-public class ClampSubSystem extends Subsystem {
+/**
+ *
+ */
+public class ScissorSubsystem extends Subsystem {
 	
-	private static DoubleSolenoid clamp;
+	private static DoubleSolenoid scissor;
 	
-	public ClampSubSystem()
+	public ScissorSubsystem()
 	{
-		clamp = new DoubleSolenoid(RobotMap.clampOut, RobotMap.clampIn);
+		scissor = new DoubleSolenoid(RobotMap.scissorUp, RobotMap.scissorDown);
+	}
+	public void ScissorUp()
+	{
+		scissor.set(DoubleSolenoid.Value.kForward);
 	}
 	
-	public void clampOn()
+	public void ScissorDown()
 	{
-		clamp.set(DoubleSolenoid.Value.kForward);
-	}	
-	
-	public void clampOff()
-	{
-		clamp.set(DoubleSolenoid.Value.kReverse);
+		scissor.set(DoubleSolenoid.Value.kReverse);
 	}
+
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -30,3 +33,4 @@ public class ClampSubSystem extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
 }
+
