@@ -1,16 +1,14 @@
 package org.usfirst.frc.team6484.robot.commands;
 
-import org.usfirst.frc.team6484.robot.OI;
-import org.usfirst.frc.team6484.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
- /*
+/**
+ *
  */
-public class ClampCommand extends Command {
-boolean clampIn = false;
-    public ClampCommand() {
-    	requires(Robot.ClampSub);
-    	// Use requires() here to declare subsystem dependencies
+public class ScissorCommand extends Command {
+
+    public ScissorCommand() {
+        // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
@@ -20,19 +18,7 @@ boolean clampIn = false;
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(OI.copilotController.isBButtonPressed())
-    		if(clampIn == true)
-    		{
-    			clampIn = false;
-    			Robot.ClampSub.clampOff();
-    		}
-    		else if(clampIn == false)
-    		{
-    			clampIn = true;
-    			Robot.ClampSub.clampOn();
-    		}
     }
-    
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
