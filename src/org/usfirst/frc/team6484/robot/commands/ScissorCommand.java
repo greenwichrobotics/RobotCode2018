@@ -1,15 +1,14 @@
 package org.usfirst.frc.team6484.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team6484.robot.OI;
+import org.usfirst.frc.team6484.robot.Robot;
 
-/**
- *
- */
 public class ScissorCommand extends Command {
-
+boolean scissorUp = false;
     public ScissorCommand() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    	requires(Robot.ScissorSub);
+      
     }
 
     // Called just before this Command runs the first time
@@ -18,7 +17,20 @@ public class ScissorCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if (OI.pilotController.isRBButtonPressed())
+    		if(scissorUp == true)
+    		{
+    			scissorUp = false;
+    			Robot.ScissorSub.ScissorUp();
+    		}
+    		else if(scissorUp == false) 
+    		{
+    			scissorUp = true;
+    			Robot.ScissorSub.ScissorDown();
+    		}
     }
+
+    
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

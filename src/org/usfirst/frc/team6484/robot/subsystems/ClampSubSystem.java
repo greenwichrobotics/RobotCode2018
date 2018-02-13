@@ -4,9 +4,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team6484.robot.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-/**
- *
- */
 public class ClampSubSystem extends Subsystem {
 	
 	private static DoubleSolenoid clamp;

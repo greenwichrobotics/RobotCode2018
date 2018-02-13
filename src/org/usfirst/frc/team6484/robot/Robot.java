@@ -18,7 +18,7 @@ import org.usfirst.frc.team6484.robot.subsystems.SweepMotorSubSystem;
 import org.usfirst.frc.team6484.robot.subsystems.ClampSubSystem;
 import org.usfirst.frc.team6484.robot.commands.autonomous.*;
 import org.usfirst.frc.team6484.robot.subsystems.TableSubSystem;
-
+import org.usfirst.frc.team6484.robot.subsystems.ScissorSubsystem;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -32,6 +32,7 @@ public class Robot extends TimedRobot {
 	public static final GyroSubsystem Gyro = new GyroSubsystem();
 	public static final TableSubSystem TableSub = new TableSubSystem();
 	public static final ClampSubSystem ClampSub = new ClampSubSystem();
+	public static final ScissorSubsystem ScissorSub = new ScissorSubsystem();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
