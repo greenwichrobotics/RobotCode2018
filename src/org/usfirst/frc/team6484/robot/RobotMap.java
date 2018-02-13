@@ -44,5 +44,6 @@ public class RobotMap {
 	public static int clampIn = 3;
 	public static int scissorUp = 4;
 	public static int scissorDown = 5;
-
+	public static int sweepIn = 6;
+	public static int sweepOut = 7;
 }

@@ -10,7 +10,7 @@ import org.usfirst.frc.team6484.robot.OI;
  */
 public class SweepMotorCommand extends Command {
 
-	//public Boolean isSweeperPull = false;
+	public Boolean sweepIn = false;
     public SweepMotorCommand() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.SweepMotorSub);
@@ -22,22 +22,19 @@ public class SweepMotorCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//    	if(OI.copilotController.isYButtonPressed())
-//    	{
-//    		//Were we in pull mode
-//    		if(isSweeperPull == true)
-//    		{
-//    			isSweeperPull = false;
-//    			Robot.SweepMotorSub.pushCube();
-//    		}
-//    		else {
-//    			isSweeperPull = true;
-//    			if(Robot.SweepMotorSub.getSweeperSwitch())
-//    				Robot.SweepMotorSub.stopMotors();
-//    			else
-//    				Robot.SweepMotorSub.grabCube();	
-//    		}
-//    	}
+    	if(OI.copilotController.isYButtonPressed())
+    	{
+    		if( sweepIn == true)
+    		{
+    			sweepIn = false;
+    			Robot.SweepMotorSub.openSweep();
+    		}
+    		else if( sweepIn == false)
+    		{
+    			sweepIn = true;
+    			Robot.SweepMotorSub.closeSweep();
+    		}
+    	}
     	if(OI.copilotController.isLBButtonPressed() && OI.copilotController.isRBButtonPressed())
     		Robot.SweepMotorSub.stopMotors();
     	else if(OI.copilotController.isLBButtonPressed())
