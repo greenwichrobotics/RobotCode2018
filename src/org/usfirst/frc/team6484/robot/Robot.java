@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6484.robot.subsystems.DriveTrainSubSystem;
 import org.usfirst.frc.team6484.robot.subsystems.GyroSubsystem;
 import org.usfirst.frc.team6484.robot.subsystems.SweepMotorSubSystem;
+import org.usfirst.frc.team6484.robot.subsystems.ArmSubSystem;
 import org.usfirst.frc.team6484.robot.subsystems.ClampSubSystem;
 import org.usfirst.frc.team6484.robot.commands.autonomous.*;
 import org.usfirst.frc.team6484.robot.subsystems.TableSubSystem;
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
 	public static final TableSubSystem TableSub = new TableSubSystem();
 	public static final ClampSubSystem ClampSub = new ClampSubSystem();
 	public static final ScissorSubsystem ScissorSub = new ScissorSubsystem();
+	public static final ArmSubSystem ArmSub = new ArmSubSystem();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
