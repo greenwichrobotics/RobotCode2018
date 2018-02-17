@@ -23,6 +23,7 @@ public class RobotMap {
 	public static int leftSweeperMotor = 4;
 	public static int rightSweeperMotor = 5;
 	public static int armMotor = 6;
+	public static int winchMotor = 7;
 	
 	//DIO
 	public static int pilotControllerPort = 0;
@@ -30,6 +31,8 @@ public class RobotMap {
 	public static int intakeSwitch = 2;
 	public static int topArmSwitch = 3;
 	public static int bottomArmSwitch = 4;
+	public static int armPositionSwitch = 5;
+	
 
 	//Pneumatics
 	public static int tableOut = 0;//out
@@ -40,4 +43,6 @@ public class RobotMap {
 	public static int scissorDown = 5;
 	public static int sweepIn = 6;
 	public static int sweepOut = 7;
+	public static int lockIn = 8;
+	public static int lockOut = 9;
 }
