@@ -22,7 +22,7 @@ public class SweepMotorSubSystem extends Subsystem {
     	sweeperCylinder = new DoubleSolenoid(RobotMap.sweepIn, RobotMap.sweepOut);
     	leftIntake = new Spark(RobotMap.leftSweeperMotor);
     	rightIntake = new Spark(RobotMap.rightSweeperMotor);
-    	limitButton = new DigitalInput(2);
+    	limitButton = new DigitalInput(RobotMap.intakeSwitch);
     }
     
     public void pullCube() {

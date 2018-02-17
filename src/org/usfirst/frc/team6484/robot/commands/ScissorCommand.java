@@ -5,9 +5,10 @@ import org.usfirst.frc.team6484.robot.OI;
 import org.usfirst.frc.team6484.robot.Robot;
 
 public class ScissorCommand extends Command {
-boolean scissorUp = false;
+boolean scissorUp = false; 
     public ScissorCommand() {
     	requires(Robot.ScissorSub);
+    
       
     }
 
@@ -22,11 +23,13 @@ boolean scissorUp = false;
     		{
     			scissorUp = false;
     			Robot.ScissorSub.ScissorUp();
+    			Robot.WinchSub.winchUp();
     		}
     		else if(scissorUp == true) 
     		{
     			scissorUp = true;
     			Robot.ScissorSub.ScissorDown();
+    			Robot.WinchSub.winchDown();
     		}
     }
 

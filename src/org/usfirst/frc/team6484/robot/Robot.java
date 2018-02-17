@@ -15,10 +15,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6484.robot.subsystems.DriveTrainSubSystem;
 import org.usfirst.frc.team6484.robot.subsystems.GyroSubsystem;
 import org.usfirst.frc.team6484.robot.subsystems.SweepMotorSubSystem;
+import org.usfirst.frc.team6484.robot.subsystems.ArmSubSystem;
 import org.usfirst.frc.team6484.robot.subsystems.ClampSubSystem;
 import org.usfirst.frc.team6484.robot.commands.autonomous.*;
 import org.usfirst.frc.team6484.robot.subsystems.TableSubSystem;
 import org.usfirst.frc.team6484.robot.subsystems.ScissorSubsystem;
+import org.usfirst.frc.team6484.robot.subsystems.WinchSubSystem;
+import org.usfirst.frc.team6484.robot.subsystems.UltrasonicSubSystem;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -33,6 +36,9 @@ public class Robot extends TimedRobot {
 	public static final TableSubSystem TableSub = new TableSubSystem();
 	public static final ClampSubSystem ClampSub = new ClampSubSystem();
 	public static final ScissorSubsystem ScissorSub = new ScissorSubsystem();
+	public static final ArmSubSystem ArmSub = new ArmSubSystem();
+	public static final WinchSubSystem WinchSub = new WinchSubSystem();
+	public static final UltrasonicSubSystem UltrasonicSub = new UltrasonicSubSystem();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
