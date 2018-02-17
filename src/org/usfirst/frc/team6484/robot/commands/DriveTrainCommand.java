@@ -2,7 +2,7 @@ package org.usfirst.frc.team6484.robot.commands;
 
 import org.usfirst.frc.team6484.robot.Robot;
 import org.usfirst.frc.team6484.robot.OI;
-
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -13,6 +13,7 @@ public class DriveTrainCommand extends Command {
     public DriveTrainCommand() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.DriveTrainSub);
+        requires(Robot.UltrasonicSub);
     }
 
     // Called just before this Command runs the first time
@@ -22,6 +23,9 @@ public class DriveTrainCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.DriveTrainSub.arcadeDrive(OI.pilotController.getTriggerValue(), OI.pilotController.getLeftStickX());
+    	
+    	Scheduler.getVoltage();
+    	Scheduler.getDistance().run();
     	
 //    	if(OI.pilotController.getLeftTrigger() > 0 && OI.pilotController.getRightTrigger() > 0)
 //    		Robot.DriveTrainSub.arcadeDrive(0.0, 0.0);

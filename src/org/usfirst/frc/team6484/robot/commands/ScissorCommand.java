@@ -5,8 +5,7 @@ import org.usfirst.frc.team6484.robot.OI;
 import org.usfirst.frc.team6484.robot.Robot;
 
 public class ScissorCommand extends Command {
-boolean scissorUp = false;
- 
+boolean scissorUp = false; 
     public ScissorCommand() {
     	requires(Robot.ScissorSub);
     
