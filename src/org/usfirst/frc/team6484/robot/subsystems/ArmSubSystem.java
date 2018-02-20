@@ -2,7 +2,7 @@ package org.usfirst.frc.team6484.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Spark;
 import org.usfirst.frc.team6484.robot.RobotMap;
 
@@ -11,28 +11,29 @@ import org.usfirst.frc.team6484.robot.RobotMap;
  */
 public class ArmSubSystem extends Subsystem {
 	
-	DoubleSolenoid lockPin;
+	Solenoid lockPin;
 	Spark armMotor;
 	DigitalInput topArmSwitch;
 	DigitalInput bottomArmSwitch;
 	DigitalInput armPositionSwitch;
+	
 	
 	public ArmSubSystem()
 	{
 		armMotor = new Spark(RobotMap.armMotor);
 		topArmSwitch = new DigitalInput(RobotMap.topArmSwitch);
 		bottomArmSwitch = new DigitalInput(RobotMap.bottomArmSwitch);
-		lockPin = new DoubleSolenoid(RobotMap.lockIn,RobotMap.lockOut);
+		lockPin = new Solenoid(RobotMap.armLockPin);
 		armPositionSwitch = new DigitalInput(RobotMap.armPositionSwitch);
 	}	
 	
    public void armUp()
    {
-	   armMotor.set(0.2);
+	   armMotor.set(1.0);
    }
    public void armDown()
    {
-	   armMotor.set(-0.2);
+	   armMotor.set(-0.5);
    }
    public void armStop()
    {
@@ -52,11 +53,11 @@ public class ArmSubSystem extends Subsystem {
    }
    public void lockIn()
    {
-	   lockPin.set(DoubleSolenoid.Value.kForward);
+	   lockPin.set(true);
    }
    public void lockOut()
    {
-	   lockPin.set(DoubleSolenoid.Value.kReverse);
+	   lockPin.set(false);
    }
    public String getCurrentPosition(String lastPosition,String direction) {
 	   if(direction == "up") {

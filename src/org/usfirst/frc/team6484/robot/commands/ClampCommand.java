@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.command.Command;
  /*
  */
 public class ClampCommand extends Command {
-boolean clampIn = false;
+private boolean clampIn = false;
+private boolean toggleB = true;
     public ClampCommand() {
     	requires(Robot.ClampSub);
     	// Use requires() here to declare subsystem dependencies
@@ -20,7 +21,8 @@ boolean clampIn = false;
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(OI.copilotController.isBButtonPressed())
+    	if(toggleB && OI.copilotController.isBButtonPressed()) {
+    		toggleB = false;
     		if(clampIn == true)
     		{
     			clampIn = false;
@@ -31,6 +33,9 @@ boolean clampIn = false;
     			clampIn = true;
     			Robot.ClampSub.clampOn();
     		}
+    	}else if (!OI.copilotController.isBButtonPressed()){
+    		toggleB = true;
+    	}
     }
     
 

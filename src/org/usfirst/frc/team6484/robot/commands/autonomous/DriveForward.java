@@ -2,8 +2,10 @@ package org.usfirst.frc.team6484.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6484.robot.Robot;
+import org.usfirst.frc.team6484.robot.subsystems.UltrasonicSubSystem;
 
 
 /**
@@ -32,11 +34,18 @@ public class DriveForward extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	SmartDashboard.putNumber("Distance", UltrasonicSubSystem.getDistance());
+ 	
+    	
+    	if(UltrasonicSubSystem.getDistance() <0.3)
+    		Robot.DriveTrainSub.stop();
+    	else {
     	double angle = forwardAngle - Robot.Gyro.getAngle();
-    	if (timer.get() < 5.0)
+    	if (timer.get() < 8.0)
     		Robot.DriveTrainSub.curvatureDrive(-0.3, angle * Kp, false); // drive towards heading 0
     	else
     		Robot.DriveTrainSub.stop();
+    	}
        
     }
 
