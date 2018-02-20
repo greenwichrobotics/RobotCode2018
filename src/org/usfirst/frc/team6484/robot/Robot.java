@@ -7,21 +7,28 @@
 
 package org.usfirst.frc.team6484.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.CameraServer;
+
+import org.usfirst.frc.team6484.robot.commands.ArmCommand;
+import org.usfirst.frc.team6484.robot.commands.ClampCommand;
+import org.usfirst.frc.team6484.robot.commands.ScissorCommand;
+import org.usfirst.frc.team6484.robot.commands.SweepMotorCommand;
+import org.usfirst.frc.team6484.robot.commands.TableCommand;
+import org.usfirst.frc.team6484.robot.commands.autonomous.*;
 import org.usfirst.frc.team6484.robot.subsystems.DriveTrainSubSystem;
 import org.usfirst.frc.team6484.robot.subsystems.GyroSubsystem;
 import org.usfirst.frc.team6484.robot.subsystems.SweepMotorSubSystem;
 import org.usfirst.frc.team6484.robot.subsystems.ArmSubSystem;
 import org.usfirst.frc.team6484.robot.subsystems.ClampSubSystem;
-import org.usfirst.frc.team6484.robot.commands.autonomous.*;
 import org.usfirst.frc.team6484.robot.subsystems.TableSubSystem;
 import org.usfirst.frc.team6484.robot.subsystems.ScissorSubsystem;
 import org.usfirst.frc.team6484.robot.subsystems.WinchSubSystem;
-import org.usfirst.frc.team6484.robot.subsystems.UltrasonicSubSystem;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -36,9 +43,9 @@ public class Robot extends TimedRobot {
 	public static final TableSubSystem TableSub = new TableSubSystem();
 	public static final ClampSubSystem ClampSub = new ClampSubSystem();
 	public static final ScissorSubsystem ScissorSub = new ScissorSubsystem();
-	public static final ArmSubSystem ArmSub = new ArmSubSystem();
 	public static final WinchSubSystem WinchSub = new WinchSubSystem();
-	public static final UltrasonicSubSystem UltrasonicSub = new UltrasonicSubSystem();
+	public static final ArmSubSystem ArmSub = new ArmSubSystem(); 
+	//public static final UltrasonicSubSystem UltrasonicSub = new UltrasonicSubSystem();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -53,9 +60,13 @@ public class Robot extends TimedRobot {
 
 		m_chooser.addDefault("Nothing", null);
 		m_chooser.addObject("Baseline", new DriveForward());
-//		m_chooser.addObject("Straight Right Straight", new StraightRightStraight());
+		m_chooser.addObject("Center To Left", new CenterToLeft());
+		m_chooser.addObject("Center To Right", new CenterToRight());
 		
 		SmartDashboard.putData("Auto Mode", m_chooser);
+		SmartDashboard.putNumber("Speed", -0.4);
+		CameraServer.getInstance().startAutomaticCapture();
+		
 	}
 
 	/**
@@ -86,8 +97,20 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
-
+		//m_autonomousCommand = m_chooser.getSelected();
+		
+		String gameData;
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+                if(gameData.length() > 0)
+                {
+		  if(gameData.charAt(0) == 'L')
+		  {
+			  m_autonomousCommand = new CenterToLeft();
+		  } else {
+			  m_autonomousCommand = new CenterToRight();
+		  }
+                }
+                
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -118,7 +141,13 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
-	
+		Scheduler.getInstance().add(new ArmCommand());
+		Scheduler.getInstance().add(new ClampCommand());
+		Scheduler.getInstance().add(new ScissorCommand());
+		//((Object) Scheduler.getInstance()).startAutomaticCapture();
+		Scheduler.getInstance().add(new SweepMotorCommand());
+		Scheduler.getInstance().add(new TableCommand());
+		//Scheduler.getInstance().add(new WinchCommand());
 	}
 
 	/**
@@ -127,7 +156,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putBoolean("Sweeper Switch", SweepMotorSub.getSweeperSwitch());
+		SmartDashboard.putBoolean("Arm Bottom Switch", ArmSub.getBottomSwitch());
+		SmartDashboard.putBoolean("Arm Top Switch", ArmSub.getTopSwitch());	
+		SmartDashboard.putNumber("Copilot Trigger", OI.copilotController.getTriggerValue());
 	}
 
 	/**

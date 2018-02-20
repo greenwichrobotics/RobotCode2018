@@ -1,7 +1,8 @@
 package org.usfirst.frc.team6484.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Solenoid;
 import org.usfirst.frc.team6484.robot.RobotMap;
 
 /**
@@ -9,22 +10,27 @@ import org.usfirst.frc.team6484.robot.RobotMap;
  */
 public class ScissorSubsystem extends Subsystem {
 	
-	private static DoubleSolenoid scissor;
+	private static Solenoid scissor;
+	private static DigitalInput tableSwitch;
 	
 	public ScissorSubsystem()
 	{
-		scissor = new DoubleSolenoid(RobotMap.scissorUp, RobotMap.scissorDown);
+		scissor = new Solenoid(RobotMap.lift);
+		tableSwitch = new DigitalInput(RobotMap.tableDown);
 	}
 	public void ScissorUp()
 	{
-		scissor.set(DoubleSolenoid.Value.kForward);
+		scissor.set(true);
 	}
 	
 	public void ScissorDown()
 	{
-		scissor.set(DoubleSolenoid.Value.kReverse);
+		scissor.set(false);
 	}
 
+	public boolean getBottonSwitch() {
+		 return !tableSwitch.get();
+	}
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 

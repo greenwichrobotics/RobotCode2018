@@ -3,28 +3,26 @@ package org.usfirst.frc.team6484.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import org.usfirst.frc.team6484.robot.RobotMap;
-import org.usfirst.frc.team6484.robot.commands.SweepMotorCommand;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  *
  */
 public class TableSubSystem extends Subsystem {
-	DoubleSolenoid table;
+	Solenoid table;
 	
 
 
 	public TableSubSystem() {
-    	table = new DoubleSolenoid(RobotMap.tableOut,RobotMap.tableIn);
+    	table = new Solenoid(RobotMap.table);
     }
 
     public void pushTable() { 
-		table.set(DoubleSolenoid.Value.kForward);
+		table.set(true);
 	}
 	
 	public void pullTable(){
-		table.set(DoubleSolenoid.Value.kReverse);
+		table.set(false);
 	}
 	public void initDefaultCommand()
 	{

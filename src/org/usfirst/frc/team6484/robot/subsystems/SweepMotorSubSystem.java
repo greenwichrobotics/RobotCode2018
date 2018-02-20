@@ -4,7 +4,7 @@ import org.usfirst.frc.team6484.robot.commands.SweepMotorCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import org.usfirst.frc.team6484.robot.RobotMap;
 
 /**
@@ -12,17 +12,16 @@ import org.usfirst.frc.team6484.robot.RobotMap;
  */ 
 public class SweepMotorSubSystem extends Subsystem {
 
-	public static DoubleSolenoid sweeperCylinder;
+	public static Solenoid sweeperCylinder;
     Spark leftIntake;
     Spark rightIntake;
     DigitalInput limitButton;
     
     public SweepMotorSubSystem()
     {
-    	sweeperCylinder = new DoubleSolenoid(RobotMap.sweepIn, RobotMap.sweepOut);
+    	sweeperCylinder = new Solenoid(RobotMap.sweeper);
     	leftIntake = new Spark(RobotMap.leftSweeperMotor);
     	rightIntake = new Spark(RobotMap.rightSweeperMotor);
-    	limitButton = new DigitalInput(RobotMap.intakeSwitch);
     }
     
     public void pullCube() {
@@ -40,10 +39,10 @@ public class SweepMotorSubSystem extends Subsystem {
     	rightIntake.set(0.0);
     }
     public void openSweep() {
-    	sweeperCylinder.set(DoubleSolenoid.Value.kForward);
+    	sweeperCylinder.set(true);
     }
     public void closeSweep() {
-    	sweeperCylinder.set(DoubleSolenoid.Value.kReverse);
+    	sweeperCylinder.set(false);
     }
     public boolean getSweeperSwitch() {
     	return !limitButton.get();
