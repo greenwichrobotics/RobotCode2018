@@ -11,6 +11,7 @@ import org.usfirst.frc.team6484.robot.OI;
 public class SweepMotorCommand extends Command {
 
 	public Boolean sweepIn = false;
+	private Boolean toggleY = true;
     public SweepMotorCommand() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.SweepMotorSub);
@@ -22,8 +23,9 @@ public class SweepMotorCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(OI.copilotController.isYButtonPressed())
+    	if(toggleY && OI.copilotController.isYButtonPressed())
     	{
+    		toggleY = false;
     		if( sweepIn == true)
     		{
     			sweepIn = false;
@@ -35,12 +37,14 @@ public class SweepMotorCommand extends Command {
     			Robot.SweepMotorSub.closeSweep();
     		}
     	}
-    	if(OI.copilotController.isLBButtonPressed() && OI.copilotController.isRBButtonPressed())
-    		Robot.SweepMotorSub.stopMotors();
-    	else if(OI.copilotController.isLBButtonPressed())
-    		Robot.SweepMotorSub.pushCube();
-    	else if(OI.copilotController.isRBButtonPressed() && !Robot.SweepMotorSub.getSweeperSwitch())
+	else if (!OI.copilotController.isYButtonPressed()){
+		toggleY = true;
+	}
+    
+    	if(OI.copilotController.getTriggerValue() > 0)
     		Robot.SweepMotorSub.pullCube();
+    	else if(OI.copilotController.getTriggerValue() < 0)
+    		Robot.SweepMotorSub.pushCube();
     	else
     		Robot.SweepMotorSub.stopMotors();
     	
