@@ -60,8 +60,12 @@ public class Robot extends TimedRobot {
 
 		m_chooser.addDefault("Nothing", null);
 		m_chooser.addObject("Baseline", new DriveForward());
-		m_chooser.addObject("Center To Left", new CenterToLeft());
-		m_chooser.addObject("Center To Right", new CenterToRight());
+		m_chooser.addObject("Left Delivery", new LeftDelivery());
+		m_chooser.addObject("Right Delivery", new RightDelivery());
+		m_chooser.addObject("Center Delivery",  new CenterDelivery());
+//		m_chooser.addObject("Center To Left", new CenterToLeft());
+//		m_chooser.addObject("Center To Right", new CenterToRight());
+//		m_chooser.addObject("StraightAndDeliver", new DriveForwardDeliverBox());
 		
 		SmartDashboard.putData("Auto Mode", m_chooser);
 		SmartDashboard.putNumber("Speed", -0.4);
@@ -97,20 +101,20 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//m_autonomousCommand = m_chooser.getSelected();
+		m_autonomousCommand = m_chooser.getSelected();
 		
-		String gameData;
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-                if(gameData.length() > 0)
-                {
-		  if(gameData.charAt(0) == 'L')
-		  {
-			  m_autonomousCommand = new CenterToLeft();
-		  } else {
-			  m_autonomousCommand = new CenterToRight();
-		  }
-                }
-                
+//		String gameData;
+//		gameData = DriverStation.getInstance().getGameSpecificMessage();
+//                if(gameData.length() > 0)
+//                {
+//		  if(gameData.charAt(0) == 'L')
+//		  {
+//			  m_autonomousCommand = new CenterToLeft();
+//		  } else {
+//			  m_autonomousCommand = new CenterToRight();
+//		  }
+//                }
+//                
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -145,7 +149,7 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().add(new ClampCommand());
 		Scheduler.getInstance().add(new ScissorCommand());
 		//((Object) Scheduler.getInstance()).startAutomaticCapture();
-		Scheduler.getInstance().add(new SweepMotorCommand());
+		//Scheduler.getInstance().add(new SweepMotorCommand());
 		Scheduler.getInstance().add(new TableCommand());
 		//Scheduler.getInstance().add(new WinchCommand());
 	}

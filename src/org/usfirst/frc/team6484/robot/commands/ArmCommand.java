@@ -25,11 +25,11 @@ public String direction = "";
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(OI.copilotController.getTriggerValue() > 0 && !Robot.ArmSub.getTopSwitch()) {
+    	if(OI.copilotController.getLeftStickY() > 0 && !Robot.ArmSub.getTopSwitch()) {
     		Robot.ArmSub.armUp(); 
     		direction = "up";
     	}
-		else if (OI.copilotController.getTriggerValue() < 0 && !Robot.ArmSub.getBottomSwitch()) {
+		else if (OI.copilotController.getLeftStickY() < 0 && !Robot.ArmSub.getBottomSwitch()) {
     		Robot.ArmSub.armDown();	
     		direction = "down";
     	}
