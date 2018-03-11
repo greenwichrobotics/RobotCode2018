@@ -49,6 +49,9 @@ public class RobotMap {
 	public static int table = 4;
 	public static int clamp = 6;
 	
+	//Analog
+	public static int ultrasonic = 0;
+	
 	//USB
 	public static int pilotControllerPort = 0;
 	public static int copilotControllerPort = 1;

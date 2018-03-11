@@ -63,6 +63,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Left Delivery", new LeftDelivery());
 		m_chooser.addObject("Right Delivery", new RightDelivery());
 		m_chooser.addObject("Center Delivery",  new CenterDelivery());
+		m_chooser.addObject("Drive5", new Drive5seconds());
 //		m_chooser.addObject("Center To Left", new CenterToLeft());
 //		m_chooser.addObject("Center To Right", new CenterToRight());
 //		m_chooser.addObject("StraightAndDeliver", new DriveForwardDeliverBox());

@@ -3,12 +3,14 @@ package org.usfirst.frc.team6484.robot.subsystems;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team6484.robot.RobotMap;
 
 /**
  *
  */
 public class UltrasonicSubSystem extends Subsystem {
-	private static final AnalogInput mb1013 = new AnalogInput(0);
+	//private static final AnalogInput mb1013 = new AnalogInput(0);
+	private static final AnalogInput mb1013 = new AnalogInput(RobotMap.ultrasonic);
 	
 	private static final double VOLTS_TO_DIST = 1.0;
 
