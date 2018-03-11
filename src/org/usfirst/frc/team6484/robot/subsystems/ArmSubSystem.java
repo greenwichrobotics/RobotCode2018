@@ -2,8 +2,11 @@ package org.usfirst.frc.team6484.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Spark;
+
+import org.usfirst.frc.team6484.robot.OI;
 import org.usfirst.frc.team6484.robot.RobotMap;
 
 /**
@@ -16,6 +19,10 @@ public class ArmSubSystem extends Subsystem {
 	DigitalInput topArmSwitch;
 	DigitalInput bottomArmSwitch;
 	DigitalInput armPositionSwitch;
+	DoubleSolenoid armRatchet;
+	public int armLocation;
+	String direction;
+	boolean togglePositionSwitch;
 	
 	
 	public ArmSubSystem()
@@ -23,21 +30,29 @@ public class ArmSubSystem extends Subsystem {
 		armMotor = new Spark(RobotMap.armMotor);
 		topArmSwitch = new DigitalInput(RobotMap.topArmSwitch);
 		bottomArmSwitch = new DigitalInput(RobotMap.bottomArmSwitch);
-		lockPin = new Solenoid(RobotMap.armLockPin);
+		//lockPin = new Solenoid(RobotMap.armLockPin);
+		armRatchet = new DoubleSolenoid(0, 1);
 		armPositionSwitch = new DigitalInput(RobotMap.armPositionSwitch);
+		armLocation = 0;
+		direction="";
+		togglePositionSwitch = false;
+		
 	}	
 	
    public void armUp()
    {
+	   ratchetOut();
 	   armMotor.set(1.0);
    }
    public void armDown()
    {
-	   armMotor.set(-0.5);
+	   ratchetOut();
+	   armMotor.set(-0.3);
    }
    public void armStop()
    {
 	   armMotor.set(0);
+	   ratchetIn();
    }
    public boolean getTopSwitch()
    {
@@ -49,7 +64,7 @@ public class ArmSubSystem extends Subsystem {
    }
    public boolean getPositionSwitch()
    {
-	   return !armPositionSwitch.get();
+	   return armPositionSwitch.get();
    }
    public void lockIn()
    {
@@ -58,6 +73,15 @@ public class ArmSubSystem extends Subsystem {
    public void lockOut()
    {
 	   lockPin.set(false);
+   }
+   public void ratchetIn()
+   {
+	   armRatchet.set(DoubleSolenoid.Value.kForward);
+   }
+    
+   public void ratchetOut()
+   {
+	   armRatchet.set(DoubleSolenoid.Value.kReverse);
    }
    public String getCurrentPosition(String lastPosition,String direction) {
 	   if(direction == "up") {
@@ -86,7 +110,64 @@ public class ArmSubSystem extends Subsystem {
 	   return lastPosition;
 		   
 	   }
-
+   	public void increasePosition() {
+   		armLocation++;
+   	}
+   	public void decreasePosition() {
+   		armLocation--;
+   	}
+   	
+//   	public void moveToBase() {
+//   		moveTo(0);
+//   	}
+//   	public void moveToStart() {
+//   		moveTo(1);
+//   	}
+//   	public void moveToSwitch() {
+//   		moveTo(2);
+//   	}
+//   	public void moveToClimb() {
+//   		moveTo(3);
+//   	}
+//   	
+//   	
+//   	private void moveTo(int position) {
+//   		trackArmLocation();
+//   		if (armLocation != position) {
+//   			if(armLocation > position){
+//   				ratchetOut();
+//   				direction = "down";
+//   				armMotor.set(-0.3);
+//   			}else if (armLocation < position){
+//   				ratchetOut();
+//   				direction="up";
+//   				armMotor.set(0.5);
+//   			}else {
+//   				armMotor.set(0.0);
+//   				ratchetIn();
+//   				togglePositionSwitch = false;
+//   			}
+//   		}else {
+//   			armMotor.set(0.0);
+//   			ratchetIn();
+//   			togglePositionSwitch = false;
+//   		}
+//   	}
+//   	private final void trackArmLocation() {
+//   		if(togglePositionSwitch && getPositionSwitch()) {
+//   			togglePositionSwitch=false;
+//   			if (direction == "up" && armLocation < 3) {
+//   				armLocation++;
+//   			}else if(direction=="down" && armLocation > 0) {
+//   				armLocation--;
+//   			}
+//   		}
+//   		if (!getPositionSwitch()) {
+//   			togglePositionSwitch=true;
+//   		}
+//   	}
+   	
+   	
    
     public void initDefaultCommand() {
     	// setDefaultCommand

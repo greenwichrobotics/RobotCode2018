@@ -1,4 +1,5 @@
 /*----------------------------------------------------------------------------*/
+
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -41,8 +42,9 @@ public class RobotMap {
 	
 
 	//Pneumatics
-	public static int armLockPin = 0;
-	public static int lift = 1;
+	public static int armRatchetIn = 0;
+	public static int armRatchetOut = 1;
+	public static int lift = 2;
 	public static int sweeper = 3;
 	public static int table = 4;
 	public static int clamp = 6;
