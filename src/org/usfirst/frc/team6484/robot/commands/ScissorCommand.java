@@ -21,7 +21,7 @@ boolean rbToggle = true;
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (rbToggle && OI.pilotController.isRBButtonPressed()) {
+    	if (rbToggle && OI.copilotController.isRBButtonPressed()) {
     		rbToggle = false;
     		if(scissorUp == false)
     		{
@@ -36,14 +36,14 @@ boolean rbToggle = true;
     			Robot.WinchSub.winchDown();
     		}
     	}
-    	else if(!OI.pilotController.isRBButtonPressed()) {
+    	else if(!OI.copilotController.isRBButtonPressed()) {
     		rbToggle = true;}
     	
     	if(Robot.ScissorSub.getBottonSwitch() && !scissorUp)
     	{
     		Robot.WinchSub.winchStop();
     	}
-    	SmartDashboard.putNumber("WinchEncoder", Robot.WinchSub.getEncoder());
+//    	SmartDashboard.putNumber("WinchEncoder", Robot.WinchSub.getEncoder());
     }
 
     

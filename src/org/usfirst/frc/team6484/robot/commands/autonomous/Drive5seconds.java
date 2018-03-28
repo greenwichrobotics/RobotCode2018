@@ -16,6 +16,7 @@ public class Drive5seconds extends Command {
 	private double Kp;
 	private double forwardAngle;
 	Timer timer;
+	double speed;
     public Drive5seconds() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -35,14 +36,15 @@ public class Drive5seconds extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//SmartDashboard.putNumber("Distance", UltrasonicSubSystem.getDistance());
- 	
+    	speed = SmartDashboard.getNumber("Speed", -7);
+    	forwardAngle = SmartDashboard.getNumber("Angle", -5);
     	
 //    	if(UltrasonicSubSystem.getDistance() <0.3)
 //    		Robot.DriveTrainSub.stop();
 //    	else {
 //    	double angle = forwardAngle - Robot.Gyro.getAngle();
     	if (timer.get() < 5.0)
-    		Robot.DriveTrainSub.curvatureDrive(-0.3,Kp, false); // drive towards heading 0
+    		Robot.DriveTrainSub.curvatureDrive(speed,forwardAngle * Kp, false); // drive towards heading 0
     	else
     		Robot.DriveTrainSub.stop();
 //}

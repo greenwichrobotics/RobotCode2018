@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Timer;
 
 import org.usfirst.frc.team6484.robot.OI;
 import org.usfirst.frc.team6484.robot.RobotMap;
@@ -19,7 +20,8 @@ public class ArmSubSystem extends Subsystem {
 	DigitalInput topArmSwitch;
 	DigitalInput bottomArmSwitch;
 	DigitalInput armPositionSwitch;
-	DoubleSolenoid armRatchet;
+	//DoubleSolenoid armRatchet;
+	Solenoid armRatchet;
 	public int armLocation;
 	String direction;
 	boolean togglePositionSwitch;
@@ -30,12 +32,13 @@ public class ArmSubSystem extends Subsystem {
 		armMotor = new Spark(RobotMap.armMotor);
 		topArmSwitch = new DigitalInput(RobotMap.topArmSwitch);
 		bottomArmSwitch = new DigitalInput(RobotMap.bottomArmSwitch);
-		//lockPin = new Solenoid(RobotMap.armLockPin);
-		armRatchet = new DoubleSolenoid(0, 1);
+		lockPin = new Solenoid(RobotMap.armLockPin);
+		//armRatchet = new DoubleSolenoid(RobotMap.armRatchetIn, RobotMap.armRatchetOut);
+		armRatchet = new Solenoid(RobotMap.armRatchetIn);
 		armPositionSwitch = new DigitalInput(RobotMap.armPositionSwitch);
 		armLocation = 0;
 		direction="";
-		togglePositionSwitch = false;
+		togglePositionSwitch = true;
 		
 	}	
 	
@@ -44,10 +47,19 @@ public class ArmSubSystem extends Subsystem {
 	   ratchetOut();
 	   armMotor.set(1.0);
    }
+   public void resetLocation() {
+	   armLocation = 0;
+   }
    public void armDown()
    {
 	   ratchetOut();
-	   armMotor.set(-0.3);
+	   armMotor.set(-0.5);
+   }
+   public void armUpSlow()
+   {
+	   ratchetOut();
+	   Timer.delay(.03);
+	   armMotor.set(0.5);
    }
    public void armStop()
    {
@@ -76,12 +88,15 @@ public class ArmSubSystem extends Subsystem {
    }
    public void ratchetIn()
    {
-	   armRatchet.set(DoubleSolenoid.Value.kForward);
+	   //armRatchet.set(DoubleSolenoid.Value.kForward);
+	   armRatchet.set(true);
+	   
    }
     
    public void ratchetOut()
    {
-	   armRatchet.set(DoubleSolenoid.Value.kReverse);
+	   //armRatchet.set(DoubleSolenoid.Value.kReverse);
+	   armRatchet.set(false);
    }
    public String getCurrentPosition(String lastPosition,String direction) {
 	   if(direction == "up") {
@@ -117,55 +132,58 @@ public class ArmSubSystem extends Subsystem {
    		armLocation--;
    	}
    	
-//   	public void moveToBase() {
-//   		moveTo(0);
-//   	}
-//   	public void moveToStart() {
-//   		moveTo(1);
-//   	}
-//   	public void moveToSwitch() {
-//   		moveTo(2);
-//   	}
-//   	public void moveToClimb() {
-//   		moveTo(3);
-//   	}
+   	public void moveToBase() {
+   		moveTo(0);
+   	}
+   	public void moveToStart() {
+   		moveTo(1);
+   	}
+   	public void moveToSwitch() {
+   		moveTo(2);
+   	}
+   	public void moveToClimb() {
+   		moveTo(3);
+   		if(armLocation == 3)
+   			lockIn();
+   	}
 //   	
 //   	
-//   	private void moveTo(int position) {
-//   		trackArmLocation();
-//   		if (armLocation != position) {
-//   			if(armLocation > position){
-//   				ratchetOut();
-//   				direction = "down";
-//   				armMotor.set(-0.3);
-//   			}else if (armLocation < position){
-//   				ratchetOut();
-//   				direction="up";
-//   				armMotor.set(0.5);
-//   			}else {
-//   				armMotor.set(0.0);
-//   				ratchetIn();
-//   				togglePositionSwitch = false;
-//   			}
-//   		}else {
-//   			armMotor.set(0.0);
-//   			ratchetIn();
-//   			togglePositionSwitch = false;
-//   		}
-//   	}
-//   	private final void trackArmLocation() {
-//   		if(togglePositionSwitch && getPositionSwitch()) {
-//   			togglePositionSwitch=false;
-//   			if (direction == "up" && armLocation < 3) {
-//   				armLocation++;
-//   			}else if(direction=="down" && armLocation > 0) {
-//   				armLocation--;
-//   			}
-//   		}
-//   		if (!getPositionSwitch()) {
-//   			togglePositionSwitch=true;
-//   		}
-//   	}
+   	private void moveTo(int position) {
+   		trackArmLocation();
+   		if (armLocation != position) {
+   			if(armLocation > position){
+   				ratchetOut();
+   				direction = "down";
+   				armMotor.set(-0.3);
+   			}else if (armLocation < position){
+   				ratchetOut();
+   				direction="up";
+   				armMotor.set(0.5);
+   			}else {
+   				armMotor.set(0.0);
+   				ratchetIn();
+   				togglePositionSwitch = false;
+   			}
+   		}else {
+   			armMotor.set(0.0);
+   			ratchetIn();
+   			togglePositionSwitch = false;
+   		}
+   	}
+   	private final void trackArmLocation() {
+   		if(togglePositionSwitch && getPositionSwitch()) {
+   			togglePositionSwitch=false;
+   			if (direction == "up" && armLocation < 3) {
+   				armLocation++;
+   			}else if(direction=="down" && armLocation > 0) {
+   				armLocation--;
+   			}
+   			
+   		}
+   		if (!getPositionSwitch()) {
+   			togglePositionSwitch=true;
+   		}
+   	}
    	
    	
    

@@ -43,10 +43,11 @@ public class RobotMap {
 
 	//Pneumatics
 	public static int armRatchetIn = 0;
-	public static int armRatchetOut = 1;
-	public static int lift = 2;
+	public static int armRatchetOut = 7;
+	public static int lift = 1;
 	public static int sweeper = 3;
 	public static int table = 4;
+	public static int armLockPin = 2;
 	public static int clamp = 6;
 	
 	//Analog
