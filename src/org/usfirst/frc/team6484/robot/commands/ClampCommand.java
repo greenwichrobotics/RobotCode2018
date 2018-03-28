@@ -17,6 +17,7 @@ private boolean toggleB = true;
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	//Robot.ClampSub.clampOn();
     }
 
     // Called repeatedly when this Command is scheduled to run

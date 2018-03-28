@@ -10,7 +10,7 @@ import org.usfirst.frc.team6484.robot.OI;
  */
 public class TableCommand extends Command {	
 	private boolean tablePush = false;
-	private boolean toggleLB = true;
+	private boolean toggleB = true;
     public TableCommand() {
         requires(Robot.TableSub);
     	// Use requires() here to declare subsystem dependencies
@@ -23,9 +23,9 @@ public class TableCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(toggleLB && OI.pilotController.isLBButtonPressed())
+    	if(toggleB && OI.pilotController.isBButtonPressed())
     	{
-    		toggleLB = false;
+    		toggleB = false;
     		if(tablePush == true)
     		{
     			tablePush = false;
@@ -37,8 +37,8 @@ public class TableCommand extends Command {
     			Robot.TableSub.pullTable();
     		}
     	}
-    	else if(!OI.pilotController.isLBButtonPressed())
-    		toggleLB = true;
+    	else if(!OI.pilotController.isBButtonPressed())
+    		toggleB = true;
     }
     	
     // Make this return true when this Command no longer needs to run execute()

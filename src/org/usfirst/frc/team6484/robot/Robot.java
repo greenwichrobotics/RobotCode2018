@@ -71,6 +71,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auto Mode", m_chooser);
 		SmartDashboard.putNumber("Speed", -0.4);
 		CameraServer.getInstance().startAutomaticCapture();
+		ClampSub.clampOff();
 		
 	}
 
@@ -150,7 +151,7 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().add(new ClampCommand());
 		Scheduler.getInstance().add(new ScissorCommand());
 		//((Object) Scheduler.getInstance()).startAutomaticCapture();
-		//Scheduler.getInstance().add(new SweepMotorCommand());
+		Scheduler.getInstance().add(new SweepMotorCommand());
 		Scheduler.getInstance().add(new TableCommand());
 		//Scheduler.getInstance().add(new WinchCommand());
 	}

@@ -43,17 +43,15 @@ public class LeftDelivery extends Command {
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		if (gameData.length() > 0) {
+			if (!isClamped) {
+				isClamped = true;
+				Robot.ClampSub.clampOn();
+			}
 			if (gameData.charAt(0) == 'L') {
 				SmartDashboard.putNumber("Distance", UltrasonicSubSystem.getDistance());
 				// Move Arm down
 				// Clamp Box
-				if (!isClamped) {
-					isClamped = true;
-					Robot.ClampSub.clampOn();
-				} else if (isClamped && timer.get() > 2.0 && !isScissorUp) {
-					isScissorUp = true;
-					Robot.ScissorSub.ScissorUp();
-				} else if (isScissorUp && timer.get() > 8.0) {
+				if (timer.get() > 2.0) {
 					double angle = forwardAngle - Robot.Gyro.getAngle();
 					if (UltrasonicSubSystem.getDistance() < 0.3) {
 						Robot.DriveTrainSub.stop();

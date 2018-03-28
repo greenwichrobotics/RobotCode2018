@@ -30,6 +30,7 @@ public class DriveForward extends Command {
     	forwardAngle = Robot.Gyro.getAngle();
     	timer = new Timer();
     	timer.start();
+    	Robot.ClampSub.clampOn();
     }
 
     // Called repeatedly when this Command is scheduled to run

@@ -19,6 +19,9 @@ private boolean toggleY;
 private boolean toggleA; 
 private boolean toggleB;
 private boolean toggleDown;
+private boolean isLockIn;
+private boolean toggleStartButton;
+Timer timer;
     public ArmCommand() {
        requires(Robot.ArmSub);
     	// Use requires() here to declare subsystem dependencies
@@ -28,6 +31,7 @@ private boolean toggleDown;
     // Called just before this Command runs the first time
     protected void initialize() {
     	lockIn = false;
+    	Robot.ArmSub.lockOut();
     	currentPosition = "Start";
     	direction = "";
     	toggleX = true;
@@ -35,7 +39,12 @@ private boolean toggleDown;
     	toggleA = true;
     	toggleB = true;
     	toggleDown = true;
+    	toggleStartButton = true;
     	Robot.ArmSub.ratchetIn();
+    	Robot.ArmSub.resetLocation();
+    	Robot.ArmSub.lockOut();
+    	timer = new Timer();
+    	isLockIn = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -43,14 +52,18 @@ private boolean toggleDown;
     	SmartDashboard.putNumber("Position", Robot.ArmSub.armLocation);
     	SmartDashboard.putBoolean("ArmPosition", Robot.ArmSub.getPositionSwitch());
     	SmartDashboard.putBoolean("DownToggle", toggleDown);
+    	if(Robot.ArmSub.getBottomSwitch())
+    	{
+    		Robot.ArmSub.resetLocation();
+    	}
     	if(OI.copilotController.getRightTrigger() > 0) {
     		//if(OI.copilotController.getLeftStickY() > 0 && !Robot.ArmSub.getTopSwitch()) {
     		Robot.ArmSub.armUp(); 
     		direction = "up";
     	}
 		else if (OI.copilotController.getLeftTrigger() > 0 && !Robot.ArmSub.getBottomSwitch() && toggleDown) {
-			Robot.ArmSub.armUp();
-			Timer.delay(.06);
+			Robot.ArmSub.armUpSlow();
+			Timer.delay(.03);
     		Robot.ArmSub.armDown();
     		toggleDown = false;
     		direction = "down";
@@ -58,10 +71,51 @@ private boolean toggleDown;
     		Robot.ArmSub.armDown();	
     		direction = "down";
     	}
+    	else if(OI.pilotController.isAButtonPressed())
+    	{
+        	//RatchetOut
+    		Robot.ArmSub.ratchetOut();
+        	//MoveArmtoClimb
+        	//LockIn
+    	}
+    	else if(OI.pilotController.isBButtonPressed() && !toggleA)
+    	{
+    		toggleA = true;
+    		Robot.ArmSub.lockOut();
+    	}
+    	
     	else {
     		Robot.ArmSub.armStop(); 
     		toggleDown = true;
     		}
+    	
+
+//    if(OI.copilotController.isStartButtonPressed() && toggleStartButton) {
+//		toggleStartButton = false;
+//		if(isLockIn)
+//		{
+//			Robot.ArmSub.lockOut();
+//			isLockIn = false;
+//		}
+//		else
+//		{	
+//			Robot.ArmSub.lockIn();
+//			isLockIn = true;    			
+//		}
+//	}
+//	else if (!OI.copilotController.isStartButtonPressed()) {
+//		toggleStartButton = true;
+//	}    	
+//    	if(toggleX && OI.copilotController.isXButtonPressed())
+//    	{
+//    		Timer timer = new Timer();
+//    		timer.start();
+//    		toggleX = false;
+//    		Robot.ArmSub.moveToClimb();
+////    		if(timer.get()>2.0)
+////    			Robot.ArmSub.lockIn();
+//    		//Robot.TableSub.pushTable();
+//    	}
 //    	if(toggleX && OI.pilotController.isXButtonPressed())
 //    	{
 //    		Robot.ArmSub.ratchetIn();
@@ -74,7 +128,7 @@ private boolean toggleDown;
 //    		toggleY = false;
 //    		toggleX = true;
 //    	}
-    		
+//    		
 //    	if(OI.copilotController.isAButtonPressed()) {
 //    		Robot.ArmSub.moveToBase();
 ////    		if(lockIn == true) {
@@ -95,13 +149,13 @@ private boolean toggleDown;
 //    	}else {
 //    		Robot.ArmSub.armStop();
 //    	}
-    	if(Robot.ArmSub.getPositionSwitch())
-    	{
-    		currentPosition = Robot.ArmSub.getCurrentPosition(currentPosition, direction);
-    		SmartDashboard.putString("Current Position", currentPosition);
-    	}
-    	
-    	
+//    	if(Robot.ArmSub.getPositionSwitch())
+//    	{
+//    		currentPosition = Robot.ArmSub.getCurrentPosition(currentPosition, direction);
+//    		SmartDashboard.putString("Current Position", currentPosition);
+//    	}
+//    	
+//    	
     }	
     
     
